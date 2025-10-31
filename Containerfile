@@ -12,6 +12,9 @@ WORKDIR /src
 COPY *.sln ./
 COPY BlazorApp/ ./BlazorApp/
 
+# Ajustar permisos para el usuario no root de OpenShift
+RUN chmod -R g+rwX /src
+
 # Restaurar dependencias
 RUN dotnet restore *.sln
 
@@ -39,4 +42,5 @@ ENV ASPNETCORE_URLS=http://+:8080 \
     DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 # Comando de inicio
+
 ENTRYPOINT ["dotnet", "BlazorApp.dll"]
