@@ -5,6 +5,9 @@
 FROM registry.redhat.io/ubi8/dotnet-90 AS build
 #FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 
+# Ejecuta como root para evitar errores de permisos
+USER root
+
 # Establecer directorio de trabajo en el contenedor para la compilación
 WORKDIR /src
 
@@ -44,3 +47,4 @@ ENV ASPNETCORE_URLS=http://+:8080 \
 # Comando de inicio
 
 ENTRYPOINT ["dotnet", "BlazorApp.dll"]
+
