@@ -2,7 +2,8 @@
 # Etapa 1: Build
 # ============================
 # Imagen base Red Hat UBI con .NET SDK
-FROM registry.redhat.io/ubi8/dotnet-90 AS build
+FROM registry.redhat.io/ubi8/dotnet-80 AS build
+#FROM registry.redhat.io/ubi8/dotnet-90 AS build
 #FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 
 # Ejecuta como root para evitar errores de permisos
@@ -29,7 +30,8 @@ RUN dotnet publish BlazorApp/BlazorApp.csproj -c Release -o /tmp/publish --self-
 # ============================
 # Etapa 2: Runtime
 # ============================
-FROM registry.redhat.io/rhel8/dotnet-90-runtime AS runtime
+FROM registry.redhat.io/rhel8/dotnet-80-runtime AS runtime
+#FROM registry.redhat.io/rhel8/dotnet-90-runtime AS runtime
 #FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
 
@@ -47,4 +49,5 @@ ENV ASPNETCORE_URLS=http://+:8080 \
 # Comando de inicio
 
 ENTRYPOINT ["dotnet", "BlazorApp.dll"]
+
 
